@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form  method="post" th:object="${staffs}">
+    <table>
+        <tr> <input type="text" th:field="*{name}" >
+            <input type="text" th:field="*{age}" >
+            <input type="text" th:field="*{staff_code}" >
+            <input type="text" th:field="*{salary}" >
+            <select th:field="*{branch}">
+                <option th:each="c : ${branch}" th:text="${c.name}" th:value="${c.id}"> </option>
+            </select>
+            <button type="submit" class="bubble-legend-symbol">EDIT</button>
+        </tr>
+
+        <tr>
+            <td style="color: red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></td>
+            <td style="color: red" th:if="${#fields.hasErrors('age')}" th:errors="*{age}"></td>
+            <td style="color: red" th:if="${#fields.hasErrors('staff_code')}" th:errors="*{staff_code}"></td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>

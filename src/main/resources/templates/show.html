@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<button><a href="/create">Create</a></button>
+<form action="/search" method="post">
+    <div class="input-group mb-3">
+        <input class="form-control" name="search" placeholder="Search by name">
+        <div class="input-group-append">
+            <button class="btn btn-success" type="submit">Go</button>
+        </div>
+        <div class="input-group-append">
+            <a href="/user" class="btn btn-success" >back to Home</a>
+        </div>
+    </div>
+</form>
+<table border="1">
+    <tr>
+        <th>#</th>
+        <th><a th:href="@{/sortBy}" onclick="count()"></a>UserName</th>
+        <th>PassWord</th>
+        <th>FullName</th>
+        <th>Phone</th>
+        <th>Email</th>
+        <th>Avatar</th>
+        <th>Role</th>
+    </tr>
+    <tr th:each="s,loop :${user}">
+        <td th:text="${loop.count}"></td>
+        <td> <a th:href="@{/detail(id=${s.id})}"><p th:text="${s.userName}"></p> </a></td>
+        <td th:text="${s.passWord}"></td>
+        <td th:text="${s.fullName}"></td>
+        <td th:text="${s.phone}"></td>
+        <td th:text="${s.email}"></td>
+        <td th:text="${s.avatar}"></td>
+        <td th:text="${s.role.role_name}"></td>
+        <td> <button><a th:href="@{/edit(id=${s.id})}">EDIT</a>  </button></td>
+        <td> <button><a th:href="@{/delete(id=${s.id})}">DELETE</a>  </button></td>
+
+    </tr>
+
+</table>
+<div class="container">
+    <ul class="pagination">
+        <li th:if="${user.hasPrevious()}" class="page-item"><a class="page-link" th:href="@{/user(page=${user.number}-1)}">previous</a></li>
+        <li class="page-item active"><a class="page-link" href="/user?page=0">1</a></li>
+        <li class="page-item"><a class="page-link" href="/user?page=1">2</a></li>
+        <li class="page-item"><a class="page-link" href="/user?page=2">3</a></li>
+        <li class="page-item"><a class="page-link" href="/user?page=3">4</a></li>
+        <li class="page-item"><a class="page-link" href="/user?page=4">5</a></li>
+        <li th:if="${user.hasNext()}" class="page-item"><a class="page-link" th:href="@{/user(page=${user.number}+1)}">next</a></li>
+    </ul>
+</div>
+</body>
+</html>
